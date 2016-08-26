@@ -30,7 +30,7 @@ int main()
 	ofstream resultOut;
 	Result res;
 
-	trainDataIn.open("TrainData.txt");
+	trainDataIn.open("TrainData.txt");//训练集数据
 	if(!trainDataIn.is_open())
 	{
 		cout<<"Can not open TrainData.txt !"<<endl;
@@ -43,31 +43,23 @@ int main()
 		double featureValue;
 		DataRow row;
 		trainDataIn>>label;
-		//cout<<label<<" ";
+		
 		TrainClassSet.push_back(label);
 		for(int j = 0;j < 14;j++)
 		{
 			trainDataIn>>featureValue;
 			row.push_back(featureValue);
-		//	cout<<featureValue<<" ";
+		
 		}
-		//cout<<endl;
+		
 		TrainSet.push_back(row);
 		row.clear();
 	}
-	/*for(int i = 0;i<124;i++)
-	{
-		cout<<TrainClassSet[i]<<" ";
-		for(int j = 0;j< 6;j++)
-		{
-			cout<<TrainSet[i][j]<<" ";
-		}
-		cout<<endl;
-	}*/
+	
 	trainDataIn.close();
 	cout<<"TrainData.txt has been read..."<<endl;
 
-	testDataIn.open("TestData.txt");
+	testDataIn.open("TestData.txt");//测试集数据
 	if(!testDataIn.is_open())
 	{
 		cout<<"Can not open TestData.txt !"<<endl;
@@ -101,12 +93,9 @@ int main()
 
 	resultOut.open("result.txt");
 	head = DecisionTree::buildTree(TrainSet,attrIndex,TrainClassSet);
-	//preorder(head);
-	//while(DecisionTree::postPrune(head));
-	//cout<<"***************"<<endl;
+	
 	DecisionTree::postPrune(head);
-	//preorder(head);
-	//cout<<"prune..."<<endl;
+	
 
 	res = DecisionTree::test(head,TestSet,TestClassSet);
 
